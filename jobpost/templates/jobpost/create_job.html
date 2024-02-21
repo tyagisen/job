@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="job-post-form">
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% for form in form %}
+        {{form.label_tag}}
+        {{form}}
+        {% endfor %}
+        {% if form.errors %}
+        {% for err in form.errros %}
+        {{err}}
+        {% endfor %}
+        {% endif %}
+        <input type="submit" class="btn btn-primary" value="post">
+    </form>
+</div>
+</div>
+{% endblock %}

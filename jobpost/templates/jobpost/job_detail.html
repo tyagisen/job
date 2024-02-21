@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="detail-page-start">
+    <div class="image-group">
+        {% if detail.job_image_one or detail.job_image_two or detail.job_image_three %}
+        <img src="{{detail.job_image_one.url}}" alt="">
+        <img src="{{detail.job_image_two.url}}" alt="">
+        <img src="{{detail.job_image_three.url}}" alt="">
+        {% endif %}
+    </div>
+    <div class="restaurant-desc">
+        <div class="comp-logo">
+            <img src="{{detail.company_logo.url}}" alt="">
+        </div>
+        <div class="main-desc">
+            <div class="role">
+                <h2>{{detail.job_title}}</h2>
+            </div>
+            <div class="location-detail">
+                <p>{{detail.post_code}}, {{detail.location}}</p>
+                <p>{{detail.pay_rate}}</p>
+                <p>{{detail.company_name}}</p>
+                <p>{{detail.date}}</p>
+            </div>
+            <hr>
+            <div class="apply-button">
+                <div class="create">
+                    <button>Create</button>
+                </div>
+                <div class="apply">
+                    <button>Apply</button>
+                </div>
+                <div class="save">
+                    <button>Save</button>
+                </div>
+            </div>
+        </div>
+        <div class="detailed-desc">
+            <p>
+                {{detail.job_description|safe}}
+            </p>
+        </div>
+        <div class="below-apply-button">
+            <div class="create">
+                <button>Create</button>
+            </div>
+            <div class="apply">
+                <button>Apply</button>
+            </div>
+            <div class="save">
+                <button>Save</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

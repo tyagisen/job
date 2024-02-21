@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-3">
+
+    </div>
+    {% for job in jobs %}
+    <div class="col-md-6">
+        
+        <div class="main-content">
+            <a href="{% url 'job-detail' job.id %}" class="div-wrapper">
+            <div class="left-part">
+                
+                <div class="job-title">
+                    <h2>{{job.job_title}}</h2>
+                </div>
+                <div class="comany-location-wrapper">
+                    <div class="company-name">
+                        <p><i class="fa-solid fa-bag-shopping"></i>{{job.company_name}}</p>
+                    </div>
+                    <div class="location">
+                        <p><i class="fa-solid fa-location-dot"></i>{{job.post_code}}, {{job.location}}</p>
+                    </div>
+                </div>
+                <div class="salary">
+                    
+                    <p><i class="fa-solid fa-money-bill"></i>{{job.pay_rate}}</p>
+                </div>
+                <div class="desc">
+                    <p>{{job.job_description|truncatechars:70|safe}}...<a href="">more</a></p>
+                </div>
+                <div class="time">
+                    <p>Recently <span class="feature">FEATURED</span><span class="new">NEW</span></p>
+                </div>
+            </div>
+            <div class="right-part">
+                <div class="logo-image">
+                    {% if job.company_logo %}
+                    <img src="{{job.company_logo.url}}" alt="">
+                    {% endif %}
+                </div>
+                <div class="stated">
+                    <i class="fa-regular fa-star fa-2x"></i>
+                </div>
+            </div>
+    </a>
+
+        </div>
+    </div>
+    {% endfor %}
+    <div class="col-md-3">
+
+    </div>
+</div>
+{% endblock %}
