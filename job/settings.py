@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # Third party apps
     'ckeditor',
+    'corsheaders',
+    'rest_framework',
     # project apps
     'accounts',
     'jobpost',
@@ -52,7 +54,11 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
+REST_FRAMEWORK = {'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissions.AllowAny',]}
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 ROOT_URLCONF = 'job.urls'
 

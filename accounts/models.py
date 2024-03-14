@@ -27,40 +27,39 @@ class Role(models.Model):
 class User(AbstractUser):
     role = models.ManyToManyField(Role)
     email =models.EmailField(unique=True, max_length=255)
-    username = models.CharField(unique=True, max_length=20)
+    username = models.CharField(unique=False, max_length=20, null=True, blank=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
 
     def __str__(self):
         return self.email
+    # def get_roles(self):
+    #     all_roles = self.roles.all()
+    #     if not all_roles:
+    #         return None
+    #     user_roles = []
+    #     for roles in all_roles:
+    #         user_roles.extend(
+    #             role_value
+    #             for role_id, role_value in Role.role_choices
+    #             if roles.id == role_id
+    #         )
+    #     return user_roles
 
-    def get_roles(self):
-        all_roles = self.roles.all()
-        if not all_roles:
-            return None
-        user_roles = []
-        for roles in all_roles:
-            user_roles.extend(
-                role_value
-                for role_id, role_value in Role.role_choices
-                if roles.id == role_id
-            )
-        return user_roles
-
-    def check_role(self, roles):
-        return roles in self.roles.all().values_list("id", flat=True)
+    # def check_role(self, roles):
+    #     return roles in self.roles.all().values_list("id", flat=True)
 
 
     @property
     def is_admin(self):
-        return self.check_role(Role.ADMIN)
+        return self.role==ADMIN
 
     @property
     def is_employeer(self):
-        return self.check_role(Role.EMPLOYEER)
+        return self.role==EMPLOYEER
 
 
     @property
     def is_employee(self):
-        return self.check_role(Role.EMPLOYEE)
+        return self.role==EMPLOYEE

@@ -12,9 +12,10 @@ from accounts.forms import SignUpEmployeeForm
 
 
 class LoginView(FormView):
+    
     template_name = "accounts/login.html"
     form_class = LoginForm
-    # success_url = "/dashboard/"
+    success_url = "/job/dashboard/"
     def form_valid(self, form):
         email = self.request.POST['email']
         password = self.request.POST['password']
@@ -40,5 +41,20 @@ class LogoutView(View):
 class SignUpSuperEmployeeView(CreateView):
     form_class = SignUpEmployeeForm
     template_name='accounts/register.html'
+    success_url = '/accounts/login/'
     success_message='Signup successful'
-    context_object_name='form'
+
+    def post(self, request, *args, **kwargs):
+        """
+        Handle POST requests: instantiate a form instance with the passed
+        POST variables and then check if it's valid.
+        """
+        self.object=None
+        form = self.get_form()
+        # print(form)
+        if form.is_valid():
+            print("valid")
+            return self.form_valid(form)
+        else:
+            print("invalid")
+            return self.form_invalid(form)

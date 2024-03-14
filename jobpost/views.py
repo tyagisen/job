@@ -1,11 +1,13 @@
 from django.shortcuts import render
 from django.views.generic import ListView, TemplateView, CreateView, DetailView
-from jobpost.models import Job
+from jobpost.models import Job, StarredJob
 from .forms import JobCreateForm
 from datetime import datetime, timedelta
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy
 
-
-class HomePage(TemplateView):
+class HomePage(TemplateView, LoginRequiredMixin):
+    
     template_name = 'jobpost/dashboard.html'
 
 
@@ -42,10 +44,10 @@ class JobDetailView(DetailView):
         posted_date = context['detail'].created_at.date()
         today_date = datetime.now().date()
         passed_date=today_date-posted_date
-        print(passed_date)
-        if passed_date:
+        if passed_date==today_date:
             context['date'] = 'Recently Added'
         else:
+            passed_date=str(passed_date).split(', ')[0]
             context['date']=passed_date
         
         context['page_name'] ='Detail Page' 
@@ -55,18 +57,28 @@ class JobDetailView(DetailView):
 
 class AddJobForm(CreateView):
     template_name = 'jobpost/create_job.html'
-    # model = Job
     form_class = JobCreateForm
-    success_url = 'job/add-job/'
-    # fields= ['job_title', 'company_logo', 'company_name', 'location', 'post_code','job_description', 'pay_rate', 'job_image_one', 'job_image_two', 'job_image_three']
-    # fields='__all__'
+    success_url = reverse_lazy('home')
 
-    def form_valid(self, form):
-        self.object = form.save()
-        print(self.object)
-        return super().form_valid(form)
+    def post(self, request, *args, **kwargs):
+        """
+        Handle POST requests: instantiate a form instance with the passed
+        POST variables and then check if it's valid.
+        """
+        form = self.get_form()
+        if form.is_valid():
+            print("valid")
+            return self.form_valid(form)
+        else:
+            print("invalid")
+            return self.form_invalid(form)
 
-    def form_invalid(self, form):
-        print("reifdiejkd")
-        return self.render_to_response(self.get_context_data(form=form))
+
+class StarredCreateView(CreateView):
+    model = StarredJob
+
+    
+
+   
+
     

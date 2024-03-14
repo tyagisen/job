@@ -19,10 +19,15 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+api_urls =[
+    path('jobpost/', include('jobpost.api.urls')),
+    path('account/', include('accounts.api.urls')),
+]
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
     path('job/', include('jobpost.urls')),
+    path('api/', include(api_urls)),
 ]
 
 urlpatterns +=  static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

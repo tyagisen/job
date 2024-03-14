@@ -102,6 +102,7 @@ background-color: #04AA6D;
 .profile-section .profile-pic{
     height:50px;
     width: 50px;
+    border:none;
     border-radius: 50%;
     z-index: 55665;
     background-color: aqua;
@@ -111,6 +112,35 @@ background-color: #04AA6D;
 .job-post-form{
     width: 30%;
     margin:auto;
+}
+.profile-section{
+    position:relative;
+    display: inline-block;
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+
+.dropdown-content a{
+    padding:12px 16px;
+    text-decoration: none;
+    display: block;
+}
+.dropdown-content a:hover{
+    color:black;
+    background-color: #f1f1f1;
+
+}
+.profile-image:hover .dropdown-content{
+    display: block;
+}
+.profile-image:hover .dropbtn{
+    background-color: #3e8e41;
 }
 
 
@@ -182,4 +212,13 @@ background-color: #04AA6D;
 .below-apply-button{
     width: 79%;
     margin:auto;
+}
+.login-page{
+    width: 25%;
+    margin:50px auto;
+    padding: 30px 40px 40px 40px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.login-page hr{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
